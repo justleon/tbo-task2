@@ -1,4 +1,5 @@
 from project import db, app
+from project.utils.masking_util import mask_str
 
 
 # Customer model
@@ -19,10 +20,11 @@ class Customer(db.Model):
         self.pesel = pesel
         self.street = street
         self.appNo = appNo
-        print("Getting: " + str(self),flush=True)
+        print("Getting: " + str(self), flush=True)
 
     def __repr__(self):
-        return f"Customer(ID: {self.id}, Name: {self.name}, City: {self.city}, Age: {self.age}, Pesel: {self.pesel}, Street: {self.street}, AppNo: {self.appNo})"
+        return (f"Customer(ID: {self.id}, Name: {self.name}, City: {self.city}, Age: {self.age}, "
+                f"Pesel: {mask_str(self.pesel)}, Street: {mask_str(self.street)}, AppNo: {mask_str(self.appNo)})")
 
 
 with app.app_context():
